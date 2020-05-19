@@ -8,8 +8,12 @@ package com.xz.stackcalculation;
  * @Version: 1.0
  */
 public class Demo {
+    /**
+     * 负数缺陷
+     * @param args
+     */
     public static void main(String[] args) {
-        System.out.println(1 + 2 * 6 - 23 - 9 * 99 + "等于" + calculation("1+2*6-23-9*99"));
+        System.out.println( 2-2*2-3+ "等于" + calculation("2-2*2-3"));
     }
 
     public static int calculation(String str) {
@@ -24,7 +28,7 @@ public class Demo {
                 }
                 numStack.push(i1);
             } else {
-                Character head = symbolStack.head();
+                Character head = symbolStack.peek();
                 if (head == null) {
                     symbolStack.push(chars[i]);
                 } else {
@@ -103,7 +107,7 @@ class LinkedStack<T> {
         temp.next = new Node<>(t);
     }
 
-    public T head() {
+    public T peek() {
         if (head == null) {
             System.out.println("栈为空");
             return null;
