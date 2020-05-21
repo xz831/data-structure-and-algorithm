@@ -9,7 +9,7 @@ package com.xz.stackcalculation;
  */
 public class Demo {
     public static void main(String[] args) {
-        System.out.println(1 + 2 * 6 - 23 - 9 * 99 + "等于" + calculation("1+2*6-23-9*99"));
+        System.out.println(1+2*6-23+9*9-10/5+ "等于" + calculation("1+2*6-23+9*9-10/5"));
     }
 
     public static int calculation(String str) {
