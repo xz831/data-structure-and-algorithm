@@ -13,12 +13,43 @@ public class Maze {
     public static void main(String[] args) {
         int[][] maze = createMaze(12, 17);
         setRandomWall(maze);
+        setRandomWall(maze);
+//        for (int[] ints : maze) {
+//            for (int anInt : ints) {
+//                System.out.print(anInt+"\t");
+//            }
+//            System.out.println();
+//        }
+        setWay(maze,1,1,12,17);
         for (int[] ints : maze) {
             for (int anInt : ints) {
                 System.out.print(anInt+"\t");
             }
             System.out.println();
         }
+    }
+
+    public static boolean setWay(int [][] map,int i,int j,int x,int y){
+        if(map[x-2][y-2] == 2){
+            return true;
+        }
+        if(map[i][j] == 0){
+            //下右上左
+            map[i][j] = 2;
+            if(setWay(map,i+1,j,x,y)){
+                return true;
+            }else if(setWay(map,i,j+1,x,y)){
+                return true;
+            }else if(setWay(map,i-1,j,x,y)){
+                return true;
+            }else if(setWay(map,i,j-1,x,y)){
+                return true;
+            }else{
+                map[i][j] = 3;
+                return false;
+            }
+        }
+        return false;
     }
     public static int[][] createMaze(int x,int y){
         if(x < 4 || y < 4){

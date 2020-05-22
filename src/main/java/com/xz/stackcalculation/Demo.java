@@ -13,7 +13,7 @@ public class Demo {
      * @param args
      */
     public static void main(String[] args) {
-        System.out.println( 2-2*2-3+ "等于" + calculation("2-2*2-3"));
+        System.out.println( 2-2*2+3+ "等于" + calculation("2-2*2+3"));
     }
 
     public static int calculation(String str) {
