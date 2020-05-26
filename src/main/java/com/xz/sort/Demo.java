@@ -13,14 +13,13 @@ import java.util.Random;
 public class Demo {
 
     static int[] arr;
-    static int maxSize = 80000;
+    static int maxSize = 8000000;
 
     static {
         Random random = new Random();
-//        arr = new int[]{438, 420, 96, 264, 101, 181, 346, 87, 352, 135};
         arr = new int[maxSize];
         for (int i = 0; i < maxSize; i++) {
-            arr[i] = random.nextInt(maxSize * 50);
+            arr[i] = random.nextInt(maxSize * 10);
         }
     }
 
@@ -30,9 +29,10 @@ public class Demo {
 //        selectionSort();//8W数据 2500ms
 //        insertSort();//8W数据 500ms
 //        shellSort();//8W数据 30ms
-        quickSort(0, arr.length - 1);
+//        quickSort(0, arr.length - 1);//8W数据 13ms
+        int[] ints = mergeSort(arr, 0, arr.length - 1);
         System.out.println(System.currentTimeMillis() - start);
-        System.out.println(Arrays.toString(arr));
+//        System.out.println(Arrays.toString(ints));
     }
 
     /**
@@ -128,43 +128,51 @@ public class Demo {
 
     /**
      * 快速排序
-     *
-     * @param start
-     * @param end
      */
     private static void quickSort(int start, int end) {
-        //基准值
         int pivot = arr[start];
-        //开始位置
-        int i = start;
-        //结束位置
-        int j = end;
-        while (i < j) {
-            //从后面开始找，直到找到一个比基准小的
-            while ((i < j) && (arr[j] > pivot)) {
-                j--;
+        int l = start;
+        int r = end;
+        while (l < r) {
+            while (l < r && arr[r] > pivot) {
+                r--;
             }
-            //从前面开始找，直到找到比基准大的
-            while ((i < j) && (arr[i] < pivot)) {
-                i++;
+            while (l < r && arr[l] < pivot) {
+                l++;
             }
-            //和基准值相等，下标移位，继续找
-            if ((arr[i] == arr[j]) && (i < j)) {
-                i++;
-                j--;
+            if (l < r && arr[r] == arr[l]) {
+                r--;
             } else {
-                //交换数据
-                swap(i,j);
+                swap(r, l);
             }
         }
-        //左递归
-        if (i - 1 > start) {
-            quickSort(start, i - 1);
+        if (l - 1 > start) {
+            quickSort(start, l - 1);
         }
-        //右递归
-        if (j + 1 < end) {
-            quickSort(j + 1, end);
+        if (r + 1 < end) {
+            quickSort(r + 1, end);
         }
+    }
+
+    public static int[] mergeSort(int[] nums, int l, int h) {
+        if(l == h){
+            return new int[]{nums[l]};
+        }
+        int mid = (l+h)/2;
+        int[] left = mergeSort(nums, l, mid);
+        int[] right = mergeSort(nums,mid+1,h);
+        int [] newArr = new int[left.length+ right.length];
+        int a = 0,b = 0,c = 0;
+        while(a < left.length && b < right.length){
+            newArr[c++] = left[a] < right[b] ? left[a++] : right[b++];
+        }
+        while(a < left.length){
+            newArr[c++] = left[a++];
+        }
+        while(b < right.length){
+            newArr[c++] = right[b++];
+        }
+        return newArr;
     }
 
     private static void swap(int x, int y) {
