@@ -19,7 +19,7 @@ public class Demo {
         Random random = new Random();
         arr = new int[maxSize];
         for (int i = 0; i < maxSize; i++) {
-            arr[i] = random.nextInt(maxSize * 5);
+            arr[i] = random.nextInt(maxSize * 10);
         }
     }
 
@@ -28,8 +28,10 @@ public class Demo {
 //        bubbleSort(); //8W数据 10578ms
 //        selectionSort();//8W数据 2500ms
 //        insertSort();//8W数据 500ms
-        shellSort();//8W数据 30ms
+//        shellSort();//8W数据 30ms
+        quickSort(0, arr.length - 1);//8W数据 13ms
         System.out.println(System.currentTimeMillis() - start);
+        System.out.println(Arrays.toString(arr));
     }
 
     /**
@@ -98,12 +100,12 @@ public class Demo {
     /**
      * 希尔插入法
      */
-    private static void shellSort(){
+    private static void shellSort() {
         int step = arr.length / 2;
-        while(step != 0){
+        while (step != 0) {
             int value;
             int index;
-            for(int i = step ; i < arr.length ; i++){
+            for (int i = step; i < arr.length; i++) {
 //                for(int j = i - step ; j>=0 ; j -= step){
 //                    if(arr[j] > arr[j+step]){
 //                        swap(j,j+step);
@@ -112,7 +114,7 @@ public class Demo {
                 index = i;
                 value = arr[i];
                 //按步进直接插入
-                while(index - step >= 0 && arr[index - step] > value){
+                while (index - step >= 0 && arr[index - step] > value) {
                     arr[index] = arr[index - step];
                     index -= step;
                 }
@@ -123,9 +125,38 @@ public class Demo {
         System.out.println(Arrays.toString(arr));
     }
 
+    /**
+     * @param start
+     * @param end
+     */
+    private static void quickSort(int start, int end) {
+        int pivot = arr[start];
+        int l = start;
+        int r = end;
+        while (l < r) {
+            while (l < r && arr[r] > pivot) {
+                r--;
+            }
+            while (l < r && arr[l] < pivot) {
+                l++;
+            }
+            if (l < r && arr[r] == arr[l]) {
+                r--;
+            } else {
+                swap(r, l);
+            }
+        }
+        if (l - 1 > start) {
+            quickSort(start, l - 1);
+        }
+        if (r + 1 < end) {
+            quickSort(r + 1, end);
+        }
+    }
+
     private static void swap(int x, int y) {
-        arr[x] = arr[x] + arr[y];
-        arr[y] = arr[x] - arr[y];
-        arr[x] = arr[x] - arr[y];
+        int temp = arr[x];
+        arr[x] = arr[y];
+        arr[y] = temp;
     }
 }
