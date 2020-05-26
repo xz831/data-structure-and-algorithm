@@ -13,7 +13,7 @@ import java.util.Random;
 public class Demo {
 
     static int[] arr;
-    static int maxSize = 8000000;
+    static int maxSize = 10;
 
     static {
         Random random = new Random();
@@ -154,6 +154,9 @@ public class Demo {
         }
     }
 
+    /**
+     * 归并排序
+     */
     public static int[] mergeSort(int[] nums, int l, int h) {
         if(l == h){
             return new int[]{nums[l]};
