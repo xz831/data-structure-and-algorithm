@@ -13,7 +13,7 @@ import java.util.Random;
 public class Demo {
 
     static int[] arr;
-    static int maxSize = 80000;
+    static int maxSize = 8000000;
 
     static {
         Random random = new Random();
@@ -29,9 +29,10 @@ public class Demo {
 //        selectionSort();//8W数据 2500ms
 //        insertSort();//8W数据 500ms
 //        shellSort();//8W数据 30ms
-        quickSort(0, arr.length - 1);//8W数据 13ms
+//        quickSort(0, arr.length - 1);//8W数据 13ms
+        int[] ints = mergeSort(arr, 0, arr.length - 1);
         System.out.println(System.currentTimeMillis() - start);
-        System.out.println(Arrays.toString(arr));
+//        System.out.println(Arrays.toString(ints));
     }
 
     /**
@@ -126,8 +127,7 @@ public class Demo {
     }
 
     /**
-     * @param start
-     * @param end
+     * 快速排序
      */
     private static void quickSort(int start, int end) {
         int pivot = arr[start];
@@ -152,6 +152,27 @@ public class Demo {
         if (r + 1 < end) {
             quickSort(r + 1, end);
         }
+    }
+
+    public static int[] mergeSort(int[] nums, int l, int h) {
+        if(l == h){
+            return new int[]{nums[l]};
+        }
+        int mid = (l+h)/2;
+        int[] left = mergeSort(nums, l, mid);
+        int[] right = mergeSort(nums,mid+1,h);
+        int [] newArr = new int[left.length+ right.length];
+        int a = 0,b = 0,c = 0;
+        while(a < left.length && b < right.length){
+            newArr[c++] = left[a] < right[b] ? left[a++] : right[b++];
+        }
+        while(a < left.length){
+            newArr[c++] = left[a++];
+        }
+        while(b < right.length){
+            newArr[c++] = right[b++];
+        }
+        return newArr;
     }
 
     private static void swap(int x, int y) {
