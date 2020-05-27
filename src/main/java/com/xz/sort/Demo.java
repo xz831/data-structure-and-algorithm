@@ -19,7 +19,7 @@ public class Demo {
         Random random = new Random();
         arr = new int[maxSize];
         for (int i = 0; i < maxSize; i++) {
-            arr[i] = random.nextInt(maxSize * 10);
+            arr[i] = random.nextInt(maxSize * 5);
         }
     }
 
@@ -191,77 +191,23 @@ public class Demo {
             max = Math.max(i, max);
         }
         int length = String.valueOf(max).length();
-        for(int k = 1 ; k <= length; k++){
-            int a=0,b=0,c=0,d=0,e=0,f=0,g=0,h=0,i=0,j=0;
+        //循环多少次等于最大数的位数
+        for(int k = 0 ; k < length; k++){
+            //10个桶每个桶存的个数
+            int[] indexs = new int[10];
             for (int i1 : arr) {
-                String s = String.valueOf(i1);
-                if(s.length() < k){
-                    bucket[0][j++] = i1;
-                }else{
-                    int i2 = (int)(i1/(Math.pow(10,k-1))%10);
-                    switch (i2){
-                        case 1:
-                            bucket[1][a++] = i1;
-                            break;
-                        case 2:
-                            bucket[2][b++] = i1;
-                            break;
-                        case 3:
-                            bucket[3][c++] = i1;
-                            break;
-                        case 4:
-                            bucket[4][d++] = i1;
-                            break;
-                        case 5:
-                            bucket[5][e++] = i1;
-                            break;
-                        case 6:
-                            bucket[6][f++] = i1;
-                            break;
-                        case 7:
-                            bucket[7][g++] = i1;
-                            break;
-                        case 8:
-                            bucket[8][h++] = i1;
-                            break;
-                        case 9:
-                            bucket[9][i++] = i1;
-                            break;
-                        default:
-                            break;
-                    }
-                }
+                //桶的位置
+                int i2 = (int)(i1/(Math.pow(10,k))%10);
+                bucket[i2][indexs[i2]++] = i1;
             }
             int index = 0;
-            for(int x = 0 ; x < j ; x++){
-                arr[index++] = bucket[0][x];
-            }
-            for(int x = 0 ; x < a ; x++){
-                arr[index++] = bucket[1][x];
-            }
-            for(int x = 0 ; x < b ; x++){
-                arr[index++] = bucket[2][x];
-            }
-            for(int x = 0 ; x < c ; x++){
-                arr[index++] = bucket[3][x];
-            }
-            for(int x = 0 ; x < d ; x++){
-                arr[index++] = bucket[4][x];
-            }
-            for(int x = 0 ; x < e ; x++){
-                arr[index++] = bucket[5][x];
-            }
-            for(int x = 0 ; x < f ; x++){
-                arr[index++] = bucket[6][x];
-            }
-            for(int x = 0 ; x < g ; x++){
-                arr[index++] = bucket[7][x];
-            }
-            for(int x = 0 ; x < h ; x++){
-                arr[index++] = bucket[8][x];
-            }
-            for(int x = 0 ; x < i ; x++){
-                arr[index++] = bucket[9][x];
+            //遍历所有桶
+            for (int i = 0 ; i < bucket.length; i++){
+                if(indexs[i] != 0){
+                    for(int j = 0 ; j < indexs[i] ; j++){
+                        arr[index++] = bucket[i][j];
+                    }
+                }
             }
         }
 //        System.out.println(Arrays.toString(arr));
