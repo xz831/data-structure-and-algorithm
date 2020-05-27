@@ -13,7 +13,7 @@ import java.util.Random;
 public class Demo {
 
     static int[] arr;
-    static int maxSize = 10;
+    static int maxSize = 80000;
 
     static {
         Random random = new Random();
@@ -30,7 +30,8 @@ public class Demo {
 //        insertSort();//8W数据 500ms
 //        shellSort();//8W数据 30ms
 //        quickSort(0, arr.length - 1);//8W数据 13ms
-        int[] ints = mergeSort(arr, 0, arr.length - 1);
+//        int[] ints = mergeSort(arr, 0, arr.length - 1);
+        radixSort();
         System.out.println(System.currentTimeMillis() - start);
 //        System.out.println(Arrays.toString(ints));
     }
@@ -57,7 +58,7 @@ public class Demo {
     }
 
     /**
-     * 选择
+     * 选择排序
      */
     private static void selectionSort() {
         int num;
@@ -79,7 +80,7 @@ public class Demo {
     }
 
     /**
-     * 插入
+     * 插入排序
      */
     private static void insertSort() {
         int[] newArr = new int[arr.length];
@@ -157,7 +158,7 @@ public class Demo {
     /**
      * 归并排序
      */
-    public static int[] mergeSort(int[] nums, int l, int h) {
+    private static int[] mergeSort(int[] nums, int l, int h) {
         if(l == h){
             return new int[]{nums[l]};
         }
@@ -176,6 +177,94 @@ public class Demo {
             newArr[c++] = right[b++];
         }
         return newArr;
+    }
+
+    /**
+     * 基数排序（桶子法）
+     */
+    private static void radixSort(){
+        //创造桶
+        int [][] bucket = new int[10][arr.length];
+        //找到最大的数
+        int max = Integer.MIN_VALUE;
+        for (int i : arr) {
+            max = Math.max(i, max);
+        }
+        int length = String.valueOf(max).length();
+        for(int k = 1 ; k <= length; k++){
+            int a=0,b=0,c=0,d=0,e=0,f=0,g=0,h=0,i=0,j=0;
+            for (int i1 : arr) {
+                String s = String.valueOf(i1);
+                if(s.length() < k){
+                    bucket[0][j++] = i1;
+                }else{
+                    int i2 = (int)(i1/(Math.pow(10,k-1))%10);
+                    switch (i2){
+                        case 1:
+                            bucket[1][a++] = i1;
+                            break;
+                        case 2:
+                            bucket[2][b++] = i1;
+                            break;
+                        case 3:
+                            bucket[3][c++] = i1;
+                            break;
+                        case 4:
+                            bucket[4][d++] = i1;
+                            break;
+                        case 5:
+                            bucket[5][e++] = i1;
+                            break;
+                        case 6:
+                            bucket[6][f++] = i1;
+                            break;
+                        case 7:
+                            bucket[7][g++] = i1;
+                            break;
+                        case 8:
+                            bucket[8][h++] = i1;
+                            break;
+                        case 9:
+                            bucket[9][i++] = i1;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            int index = 0;
+            for(int x = 0 ; x < j ; x++){
+                arr[index++] = bucket[0][x];
+            }
+            for(int x = 0 ; x < a ; x++){
+                arr[index++] = bucket[1][x];
+            }
+            for(int x = 0 ; x < b ; x++){
+                arr[index++] = bucket[2][x];
+            }
+            for(int x = 0 ; x < c ; x++){
+                arr[index++] = bucket[3][x];
+            }
+            for(int x = 0 ; x < d ; x++){
+                arr[index++] = bucket[4][x];
+            }
+            for(int x = 0 ; x < e ; x++){
+                arr[index++] = bucket[5][x];
+            }
+            for(int x = 0 ; x < f ; x++){
+                arr[index++] = bucket[6][x];
+            }
+            for(int x = 0 ; x < g ; x++){
+                arr[index++] = bucket[7][x];
+            }
+            for(int x = 0 ; x < h ; x++){
+                arr[index++] = bucket[8][x];
+            }
+            for(int x = 0 ; x < i ; x++){
+                arr[index++] = bucket[9][x];
+            }
+        }
+//        System.out.println(Arrays.toString(arr));
     }
 
     private static void swap(int x, int y) {
