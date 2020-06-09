@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Demo {
     public static void main(String[] args) {
-        int[] arr = {7, 3, 10, 12, 5, 1, 9, 0};
+        int[] arr = {7, 3, 10, 12, 5, 1, 9};
         List<Node> list = new ArrayList<>();
         for (int i : arr) {
             Node node = new Node(i);
@@ -22,7 +22,13 @@ public class Demo {
         for (Node node : list) {
             binarySortTree.add(node);
         }
+        binarySortTree.del(5);
+        binarySortTree.del(12);
+        binarySortTree.del(3);
+        binarySortTree.del(7);
+        binarySortTree.del(9);
         binarySortTree.del(1);
+        binarySortTree.del(10);
         binarySortTree.preOrder();
     }
 }
