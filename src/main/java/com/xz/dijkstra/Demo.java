@@ -1,6 +1,5 @@
 package com.xz.dijkstra;
 
-import java.security.PublicKey;
 import java.util.Arrays;
 
 /**
@@ -53,7 +52,9 @@ public class Demo {
                 dis[i] = len;
             }
         }
+        //遍历除了起点以外的所有顶点
         for(int j = 1;j<vertex.length;j++){
+            //筛选出最短距离点，以最短距离点作为起点进行下一次距离计算
             int min = 6666;
             int minIndex = -1;
             for(int i = 0; i < vertex.length ; i ++){
@@ -78,5 +79,12 @@ public class Demo {
         System.out.println(Arrays.toString(dis));
         System.out.println(Arrays.toString(alreadyArr));
         System.out.println(Arrays.toString(preVisited));
+        for (int i = 0; i < dis.length; i++) {
+            if(dis[i]!=6666){
+                System.out.print(vertex[i]+"("+dis[i]+") ");
+            }else{
+                System.out.print(vertex[i]+"(N) ");
+            }
+        }
     }
 }
