@@ -1,7 +1,5 @@
 package com.xz.kmp;
 
-import sun.security.krb5.internal.crypto.Des;
-
 import java.util.Arrays;
 
 /**
